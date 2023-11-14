@@ -1,0 +1,14 @@
+SOLVED
+case 1 take 13.109000 s
+SOLVED
+case 2 take 0.119000 s
+SOLVED
+case 3 take 0.436000 s
+SOLVED
+case 4 take 0.771000 s
+SOLVED
+case 5 take 35.129000 s
+SOLVED
+case 6 take 27.624000 s
+SOLVED
+case 7 take 12.281000 s
