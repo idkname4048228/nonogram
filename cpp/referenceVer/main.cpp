@@ -177,10 +177,8 @@ void FP1(Grid &G)
     } while (G.updatedPixels.size() != 0);
 }
 
-void backtracking(Grid &G)
+void backtracking(Grid &G, int deep)
 {
-    if (solve)
-        return;
     FP1(G);
     if (G.state == "CONFLICT")
     {
@@ -193,10 +191,17 @@ void backtracking(Grid &G)
     }
 
     pair<int, int> x_y = G.getUnknowPixels()[0];
+
+
     G.updatePixel(x_y.first, x_y.second, '0');
-    backtracking(G);
+    backtracking(G, deep + 1);
+
+    if (solve)
+        return;
+
+
     G.updatePixel(x_y.first, x_y.second, '1');
-    backtracking(G);
+    backtracking(G, deep + 1);
 }
 
 int main()
@@ -210,13 +215,16 @@ int main()
         start = clock();
         fileInput();
 
-        backtracking(grid);
+        backtracking(grid, 0);
 
         
         end = clock();
         double diff = (double)(end - start) / CLOCKS_PER_SEC;
-        // cout << grid.toString() << endl;    
+        // cout << grid.toString() << endl;
+        
+        cout << (grid.checkAns() ? "CORRECT" : "WRONG ANSWER") << endl;
         cout << grid.state << endl;
+            
         // cout << diff << endl;
         printf("case %d take %f s\n", c, diff);
     }

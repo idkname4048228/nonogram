@@ -80,7 +80,9 @@ public:
 
             for(int j = 0; j <HOWBIG; j++){
                 if (la->s[j] == lb->s[j] and la->s[j] != lo->s[j]){
-                    // cout << "x: " << i << " y: " << j << " " << la->s[j] << endl;
+                    if (lo->s[j] != 'u'){
+                        cout << "e04" << endl;
+                    }
                     returnList.push_back({i, j, la->s[j]});
                 }
             }
@@ -97,6 +99,38 @@ public:
             count += 1;
         }
         return s;
+    }
+
+    bool checkAns(){
+        vector<int> realD = vector<int>();
+        for (Line* line : lines){
+            realD.clear();
+            int tmp = 0;
+            for(char c : line -> s){
+                if (c == '0' and tmp != 0){
+                    realD.push_back(tmp);
+                    tmp = 0;
+                }
+                else if (c == '1'){
+                    tmp += 1;
+                }
+            }
+            if (tmp != 0){
+                realD.push_back(tmp);
+            }
+            if (realD != line->d){
+                for (int element : realD) {
+                    std::cout << element << " ";
+                }
+                cout << endl;
+                for (int element : line->d) {
+                    std::cout << element << " ";
+                }
+                cout << endl;
+                return false;
+            }
+        }
+        return true;
     }
 
 };
