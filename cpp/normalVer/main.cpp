@@ -210,7 +210,8 @@ int main()
         start = clock();
         fileInput();
 
-        backtracking(grid);
+        // backtracking(grid);
+        cout << grid.lines[0].paint() << endl;
 
         
         end = clock();

@@ -7,11 +7,30 @@ class LineSolver
 public:
     vector<int> d;
     string s;
+    vector<int> needLength;
 
-    LineSolver(string& currentS, vector<int>& block_sections)
+    // bool mask0[HOWBIG][HOWBIG] = {0};
+    // bool mask1[HOWBIG][HOWBIG] = {0};
+    // bool fix0DP[HOWBIG][HOWBIG] = {0};
+    // bool fix1DP[HOWBIG][HOWBIG] = {0};
+
+    LineSolver(string &currentS, vector<int> &block_sections)
     {
         d = block_sections;
+        int prefixSum = -1;
+        for (int num : d){
+            prefixSum += (num + 1);
+            needLength.push_back(prefixSum);
+        }
         s = currentS;
+        // for (int i = 0; i < s.length(); i++)
+        // {
+        //     for (int j = 0; j < d.size(); j++)
+        //     {
+        //         mask0[i][j] = true;
+        //         mask1[i][j] = true;
+        //     }
+        // }
     }
 
     bool fix()
@@ -31,9 +50,8 @@ public:
         }
     }
 
-    bool fix0(int i, int j)
-    {
-        if (s[i] != '1')
+    bool fix0(int i, int j){
+        if (!(i < needLength[j]) and (s[i] ^ '1') != 0)
             return fix(i - 1, j);
         return false;
     }
@@ -47,7 +65,8 @@ public:
         {
             for (int index = 0; index < d[j]; index++)
             {
-                if (s[index] == '0')
+
+                if ((s[index] ^ '0') == 0)
                 {
                     leadingOne = false;
                     break;
@@ -68,11 +87,12 @@ public:
 
     bool matchSigma(int i, int j)
     {
-        if (s[i - d[j]] != '1')
+
+        if ((s[i - d[j]] ^ '1') != 0)
         {
             for (int index = 0; index < d[j]; index++)
             {
-                if (s[i - d[j] + 1 + index] == '0')
+                if ((s[i - d[j] + 1 + index] ^ '0') == 0)
                     return false;
             }
         }
@@ -136,7 +156,8 @@ public:
         string re = "";
         for (int i = 0; i < s2.length(); i++)
         {
-            if (s1[i] == s2[i])
+
+            if ((s1[i] ^ s2[i]) == 0)
             {
                 re += s1[i];
             }

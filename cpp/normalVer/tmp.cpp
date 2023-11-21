@@ -1,12 +1,36 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-using namespace std;
+int findInsertPosition(const std::vector<int>& vec, int target) {
+    int low = 0;
+    int high = vec.size();
 
-int main(){
-    vector<int> a = vector<int>();
-    vector<int> b = {1, 2, 3, 4};
-    for (int i = 1; i < 5; i++){
-        a.push_back(i);
+    while (low < high) {
+        int mid = low + (high - low) / 2;
+
+        if (vec[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
     }
-    cout << ((a == b) ? "CORRECT" : "WRONG") << endl;
+
+    return low;
+}
+
+int main() {
+    std::vector<int> sortedVector = {1, 3, 5, 6, 7, 9};
+    int target = 6;
+
+    int insertPosition = findInsertPosition(sortedVector, target);
+    sortedVector.insert(sortedVector.begin() + insertPosition, target);
+
+    std::cout << "The target should be inserted at position: " << insertPosition << std::endl;
+
+    for(int i : sortedVector){
+        std::cout << i << " ";
+    }
+
+    return 0;
 }

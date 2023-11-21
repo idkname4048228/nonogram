@@ -66,7 +66,7 @@ void propagate(Grid &G)
         }
 
         string painted = lineSolver.paint();
-        
+
         G.setLine(lineNumber, painted);
     }
     if (isSolve(G))
@@ -218,7 +218,7 @@ int main()
 
         end = clock();
         double diff = (double)(end - start) / CLOCKS_PER_SEC;
-        // cout << grid.t`oString() << endl;
+        // cout << grid.toString() << endl;
         
         cout << (checkAns(grid) ? "CORRECT, " : "WRONG ANSWER, ");
         cout << grid.state << endl;

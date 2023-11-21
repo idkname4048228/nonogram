@@ -216,14 +216,14 @@ int main()
         start = clock();
         fileInput();
 
-        backtracking(grid);
+        FP1(grid);
 
         
         end = clock();
         double diff = (double)(end - start) / CLOCKS_PER_SEC;
-        // cout << grid.toString() << endl;
+        cout << grid.toString() << endl;
         
-        cout << (grid.checkAns() ? "CORRECT, " : "WRONG ANSWER, ");
+        // cout << (grid.checkAns() ? "CORRECT, " : "WRONG ANSWER, ");
         cout << grid.state << endl;
             
         // cout << diff << endl;
