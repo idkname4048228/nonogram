@@ -114,17 +114,15 @@ public:
 
     void insertToLineOfG(int value)
     {
-        int insertPosition = findInsertPosition(value);
         if (lineOfG.size() == 0){
             lineOfG.push_back(value);
+            return ;
         }
-        else{
-            if (lineOfG[insertPosition] != value)
-            {
-                lineOfG.insert(lineOfG.begin() + insertPosition, value);
-            }
-        }
-        
+        int insertPosition = findInsertPosition(value);
+        if (lineOfG[insertPosition] != value)
+        {
+            lineOfG.insert(lineOfG.begin() + insertPosition, value);
+        }        
     }
 
     void updatePixel(int x, int y, char c, bool changeRow)
