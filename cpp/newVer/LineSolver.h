@@ -68,24 +68,19 @@ public:
         if (j < 0)
             return false;
 
-        bool enoughLength = (i + 1) - d[j] >= 0;
-        if (enoughLength){
+        if ((i + 1) - d[j] >= 0){
             for (int index = 0; index < d[j]; index++){
                 if ((s[(i + 1) - d[j] + index] ^ '0') == 0){
-                    enoughLength = false;
-                    break;
+                    return false;
                 }
             }
         }
-        if (!enoughLength){
-            return false;
-        }
-        
+
         if ((j == 0 && (i + 1) - d[j] == 0))    //leadingOne
         {
             return true;
         }
-        if ((j >= 0 && i >= d[j]) && ((s[i - d[j]] ^ '1') != 0))    //leadingZero
+        if ((s[i - d[j]] ^ '1') != 0)    //leadingZero
         {
             return fix(i - d[j] - 1, j - 1);
         }
