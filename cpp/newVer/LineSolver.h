@@ -18,7 +18,8 @@ public:
     {
         d = block_sections;
         int prefixSum = -1;
-        for (int num : d){
+        for (int num : d)
+        {
             prefixSum += (num + 1);
             needLength.push_back(prefixSum);
         }
@@ -46,20 +47,24 @@ public:
         }
         else
         {
+            // bool res = fix0(i, j) || fix1(i, j);
+
             return fix0(i, j) || fix1(i, j);
         }
     }
 
-    bool fix0(int i, int j){
+    bool fix0(int i, int j)
+    {
+        bool res;
         if ((s[i] ^ '1') != 0)
-            return fix(i - 1, j);
-        return false;
+            res = fix(i - 1, j);
+        else
+            res = false;
+        return res;
     }
 
     bool fix1(int i, int j)
     {
-        bool leadingZero = (j >= 0 && i >= d[j]) && matchSigma(i, j);
-
         bool leadingOne = (j == 0 && (i + 1) - d[j] == 0);
         if (leadingOne)
         {
@@ -78,7 +83,7 @@ public:
         {
             return true;
         }
-        if (leadingZero)
+        if ((j >= 0 && i >= d[j]) && matchSigma(i, j))
         {
             return fix(i - d[j] - 1, j - 1);
         }
