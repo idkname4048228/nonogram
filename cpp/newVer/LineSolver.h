@@ -51,7 +51,7 @@ public:
     }
 
     bool fix0(int i, int j){
-        if (!(i < needLength[j]) and (s[i] ^ '1') != 0)
+        if ((s[i] ^ '1') != 0)
             return fix(i - 1, j);
         return false;
     }
