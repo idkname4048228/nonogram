@@ -67,20 +67,25 @@ public:
     {
         if (j < 0)
             return false;
-
-        if ((i + 1) - d[j] >= 0){
-            for (int index = 0; index < d[j]; index++){
-                if ((s[(i + 1) - d[j] + index] ^ '0') == 0){
-                    return false;
+            
+        bool leadingOne = (j == 0 && (i + 1) - d[j] == 0);
+        if (leadingOne)
+        {
+            for (int index = 0; index < d[j]; index++)
+            {
+                if (s[index] == '0')
+                {
+                    leadingOne = false;
+                    break;
                 }
             }
         }
 
-        if ((j == 0 && (i + 1) - d[j] == 0))    //leadingOne
+        if (leadingOne)
         {
             return true;
         }
-        if ((s[i - d[j]] ^ '1') != 0)    //leadingZero
+        if ((j >= 0 && i >= d[j]) && matchSigma(i, j))
         {
             return fix(i - d[j] - 1, j - 1);
         }
