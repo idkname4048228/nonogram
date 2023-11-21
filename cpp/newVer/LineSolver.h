@@ -65,25 +65,27 @@ public:
 
     bool fix1(int i, int j)
     {
-        bool leadingOne = (j == 0 && (i + 1) - d[j] == 0);
-        if (leadingOne)
-        {
-            for (int index = 0; index < d[j]; index++)
-            {
+        if (j < 0)
+            return false;
 
-                if ((s[index] ^ '0') == 0)
-                {
-                    leadingOne = false;
+        bool enoughLength = (i + 1) - d[j] >= 0;
+        if (enoughLength){
+            for (int index = 0; index < d[j]; index++){
+                if ((s[(i + 1) - d[j] + index] ^ '0') == 0){
+                    enoughLength = false;
                     break;
                 }
             }
         }
-
-        if (leadingOne)
+        if (!enoughLength){
+            return false;
+        }
+        
+        if ((j == 0 && (i + 1) - d[j] == 0))    //leadingOne
         {
             return true;
         }
-        if ((j >= 0 && i >= d[j]) && matchSigma(i, j))
+        if ((j >= 0 && i >= d[j]) && ((s[i - d[j]] ^ '1') != 0))    //leadingZero
         {
             return fix(i - d[j] - 1, j - 1);
         }
@@ -137,8 +139,7 @@ public:
         }
         else
         {
-            string t0 = paint0(i, j), t1 = paint1(i, j);
-            return merge(t0, t1);
+            return merge(paint0(i, j), paint1(i, j));
         }
     }
 
@@ -161,15 +162,7 @@ public:
         string re = "";
         for (int i = 0; i < s2.length(); i++)
         {
-
-            if ((s1[i] ^ s2[i]) == 0)
-            {
-                re += s1[i];
-            }
-            else
-            {
-                re += "u";
-            }
+            re += (((s1[i] ^ s2[i]) == 0) ? s1[i] : 'u');
         }
         return re;
     }
